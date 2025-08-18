@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="default">
+
+    <!-- Ground and Sun -->
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    
+
+    <!-- GUI camera settings -->
+    <gui>
+      <camera name="yz_follow_view">
+        <!-- Pose: X Y Z R P Y -->
+        <!-- Position the camera 15 units away in -X direction, looking toward +X -->
+        <pose>-3 0 1 0 0 0</pose> <!-- X = -15, looking along +X toward origin -->
+        <track>
+          <entity>rrr_arm</entity>
+          <static>true</static> <!-- lock camera orientation -->
+          <min_dist>2</min_dist>
+          <max_dist>20</max_dist>
+          <use_model_frame>true</use_model_frame>
+        </track>
+      </camera>
+    </gui>
+	
+	
+    <scene>
+        <sky>
+            <clouds>
+                <speed>12</speed>
+            </clouds>
+        </sky>
+    </scene>
+
+
+   
+
+
+	
+  </world>
+</sdf>

@@ -1,0 +1,35 @@
+<launch>
+
+    <!-- Launch Gazebo Empty World 
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="paused" default="false" />
+        <arg name="use_sim_time" default="true" />
+        <arg name="gui" default="true" />
+        <arg name="headless" default="false" />
+        <arg name="debug" default="false" />
+    </include>-->
+
+    <!-- Spawn Robotic Arm -->
+    <include file="$(find rrr_arm)/launch/view_arm_gazebo_empty_world.launch" />
+
+    <!-- Load Arm Controllers -->
+    <rosparam file="$(find rrr_arm)/config/rrr_arm_gazebo_control.yaml" command="load"/>
+
+    <!-- Spawn Arm Controllers -->
+
+
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+	  output="screen" ns="/rrr_arm" args="joint_state_controller
+					                      joint1_position_controller
+					                      joint2_position_controller
+					                      joint3_position_controller
+                                          joint_motor_controller"/>
+    <!-- Arm State Publisher -->
+    <node name="robot_state_publisher_arm" pkg="robot_state_publisher" type="robot_state_publisher"
+          respawn="false" output="screen">
+        <remap from="/joint_states" to="/rrr_arm/joint_states" />
+    </node>
+    
+    
+
+</launch>
